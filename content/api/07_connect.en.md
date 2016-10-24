@@ -89,7 +89,7 @@ export default connect({
 ```
 
 ### Strict rendering
-Due to Cerebrals "render on path change" it is possible to optimize component rendering.
+Due to Cerebral's "render on path change" feature, it is possible to optimize component rendering with the `strictRender` option.
 
 ```js
 import React from 'react'
@@ -109,7 +109,7 @@ render((
 ), document.querySelector('#app'))
 ```
 
-Now your components will only render when the exact state path defined changes:
+Now the components will only render when the exact state path defined changes:
 
 ```js
 import React from 'react'
@@ -124,9 +124,9 @@ export default connect({
 )
 ```
 
-This component will only render when exactly **app.isLoading** changes. It will not change if there is a change to path: **app** or **app.isLoading.foo**.
+This component will only render when exactly **app.isLoading** changes. It will not change if there is a change to paths **app** or **app.isLoading.foo**.
 
-When in **strict mode** you can specify child path interest. So for example a component showing a list can rerender when some nested path has a change:
+When in **strict mode** you can specify children path interest. For example, a component showing a list needs to rerender when some nested path has a change. We set this by adding `.**` to the path:
 
 ```js
 import React from 'react'
@@ -141,7 +141,7 @@ export default connect({
 )
 ```
 
-Or sometimes you are only interested in the immediate child paths. For example when you base your list of a map (object), you only want to rerender when keys are added/removed from the map:
+Or sometimes the component is only interested in the immediate children paths. For example when you base your list on a map (object), you only want to rerender when keys are added/removed from the map:
 
 ```js
 import React from 'react'
@@ -156,6 +156,6 @@ export default connect({
 )
 ```
 
-This render mode has a great performance improvement on your app. It is recommended to use it from the start if you are building a large application. The onlgy **gotcha** with this approach is where you change parent paths.
+This render mode has a great performance improvement on your app. It is recommended to use it from the start if you are building a large application. The only **gotcha** with this approach is related to how you change parent paths.
 
 Lets say you point to path **app.isLoading** in a component. If you change out **app** path, the component will not render. Though if you did a *merge* it would work. This is rarely an issue, but good to know.
